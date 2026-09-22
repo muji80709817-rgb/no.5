@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>짤팩토리 - 텍스트 옵션 & PNG 다운로드</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Malgun Gothic', sans-serif;
+      background: #f4f5f7;
+      margin: 0;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      display: flex;
+      gap: 24px;
+      max-width: 1100px;
+      width: 100%;
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+    .panel {
+      flex: 0 0 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .preview {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    h1 {
+      font-size: 20px;
+      margin: 0 0 8px;
+      color: #222;
+    }
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+      display: block;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+    input[type="color"] {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      cursor: pointer;
+      background: none;
+    }
+    input[type="file"] {
+      font-size: 13px;
+    }
+    button {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 6px;
+      background: #4a6cf7;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button:hover { background: #3a5ce0; }
+    button:disabled {
+      background: #b7c0e0;
+      cursor: not-allowed;
+    }
+    #canvasWrap {
+      border: 1px dashed #c8ccd4;
+      border-radius: 8px;
+      padding: 8px;
+      background: #fafbfc;
+      min-width: 400px;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .value {
+      font-size: 12px;
+      color: #666;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 좌측 컨트롤 패널 -->
+    <div class="panel">
+      <h1>🎨 짤팩토리</h1>
+
+      <div>
+        <label for="imageInput">이미지 업로드</label>
+        <input type="file" id="imageInput" accept="image/*" />
+      </div>
+
+      <div>
+        <label for="topText">상단 텍스트</label>
+        <input type="text" id="topText" placeholder="상단에 들어갈 텍스트" />
+      </div>
+
+      <div>
+        <label for="bottomText">하단 텍스트</label>
+        <input type="text" id="bottomText" placeholder="하단에 들어갈 텍스트" />
+      </div>
+
+      <div>
+        <label for="fontSize">글자 크기</label>
+        <input type="range" id="fontSize" min="10" max="120" value="40" />
+        <div class="value"><span id="fontSizeValue">40</span> px</div>
+      </div>
+
+      <div>
+        <label for="fontColor">글자 색상</label>
+        <input type="color" id="fontColor" value="#ffffff" />
+      </div>
+
+      <button id="downloadBtn" disabled>PNG 다운로드</button>
+    </div>
+
+    <!-- 우측 미리보기 -->
+    <div class="preview">
+      <div id="canvasWrap">
+        <canvas id="canvas" width="600" height="450"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
